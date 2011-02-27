@@ -8,8 +8,10 @@ void continueGame(void)
 	char pass[11], name[11];
 	
 	/*login player and password*/
-	inputField("Choose name", name, 0);
-	inputField("Choose password", pass, 1);	
+	if(inputField("Name", name, 0) == -1)
+		return;
+	if(inputField("Password", pass, 1) == -1)
+		return;	
 
 	/*check player in the server*/
 	loadGameRemote(name, pass);
@@ -22,8 +24,22 @@ void continueGame(void)
 void loadGameRemote(char * name, char * password)
 {
 	/*retrieve player info*/
-	sendRemotePlayer(name, password, "playerinfo.php", "load.data");
-	
-	/*get player info - inicially just confirm it exists*/
-
+	if(sendRemotePlayer(name, password, "playerinfo.php", "load.data") == 0)
+	{
+		if(responseCheck("load.data", "Ok") == 0)
+		{
+			printw("Loaded player successfully\n");
+			getch();
+		}
+		if(responseCheck("load.data", "WrongPass") == 0)
+		{
+			printw("Wrong password!\n");
+			getch();
+		}
+		if(responseCheck("load.data", "NotFound") == 0)
+		{
+			printw("Player doesn't exist!\n");
+			getch();
+		}
+	}
 }

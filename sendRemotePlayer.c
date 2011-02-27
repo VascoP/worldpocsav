@@ -25,9 +25,6 @@ int sendRemotePlayer(char * name, char * password, char * page, char * stream)
 	/*POST*/
 	if((status = postData(sendString, website, stream)) == 0)
 	{	
-		printw("Ok!", name, password);
-		refresh();
-		getch();
 		clear();
 		refresh();
 	}

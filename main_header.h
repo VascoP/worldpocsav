@@ -17,14 +17,16 @@
 
 #define MARGIN 2
 #define ENTER_KEY 13
+#define ESCAPE_KEY 27
 #define arrSize(a) sizeof(a)/sizeof(a[0])
 
 int screenx, screeny;
 
-void inputField(char * label, char * string, int password);
+int inputField(char * label, char * string, int password);
 int postData(char * data, char * url, char * stream);
 void emptyRead(void *ptr, size_t size, size_t nmemb, void *stream);
 int responseCheck(char * registerFile, char * string);
+char * readString(char * string, int password);
 
 void showStats(player hero);
 void continueGame(void);

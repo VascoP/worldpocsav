@@ -11,9 +11,10 @@ void newGame()
 	char * registerFile = "register.data";
 
 	/*simple form like input for name and password*/
-	inputField("Choose name", name, 0);
-	inputField("Choose password", pass, 1);	
-
+	if(inputField("Choose name", name, 0) == -1)
+		return;
+	if(inputField("Choose password", pass, 1) == -1)
+		return;
 	/*starts structure with the name/pass and initial stats*/
 	initPlayer(name, pass, &hero);
 
@@ -27,5 +28,5 @@ void newGame()
 		}
 	}
 	/*showStats(hero);*/
-
+	return;
 }
