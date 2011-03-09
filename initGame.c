@@ -9,6 +9,7 @@ void initGame()
 	/*items in the menu*/
 	char *choices[] = { "New Game", "Continue Game", "Help", "Exit" };
 	int option;
+	player * hero = (player *) malloc(sizeof(player));
 
 	while(1)
 	{
@@ -19,10 +20,10 @@ void initGame()
 		switch(option)
 		{
 			/*new game*/
-			case 0:	newGame();
+			case 0:	newGame(hero);
 					break;
 			/*continue game*/
-			case 1: continueGame();
+			case 1: continueGame(hero);
 					break;
 			/*help screen*/
 			case 2: help();
@@ -32,6 +33,7 @@ void initGame()
 					break;
 		}
 	}
+	free(hero);
 }
 
 

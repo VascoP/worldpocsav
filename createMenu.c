@@ -13,7 +13,6 @@ int createMenu(char * title, char **choices, int n_choices, int y, int x, int go
 	ITEM **menuItems;
 	WINDOW *menuWin;
 
-	clear();
 	/*prints title*/
 	printw("%s", title);
 	refresh();
@@ -68,7 +67,6 @@ int createMenu(char * title, char **choices, int n_choices, int y, int x, int go
 		free_item(menuItems[i]);
 	free(menuItems);
 	delwin(menuWin);
-	clear();
 
 	/*returns the index of the choice made*/
 	return c;

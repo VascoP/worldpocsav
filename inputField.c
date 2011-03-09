@@ -20,6 +20,8 @@ int inputField(char * label, char * string, int password)
 		if(readString(string, password) == NULL)
 		{
 			curs_set(0);
+			clear();
+			refresh();
 			return -1;
 		}
 		strcpy(check, string);
@@ -29,6 +31,8 @@ int inputField(char * label, char * string, int password)
 		if(readString(string, password) == NULL)
 		{
 			curs_set(0);
+			clear();
+			refresh();
 			return -1;
 		}
 		clear();
@@ -42,6 +46,12 @@ int inputField(char * label, char * string, int password)
 	return 0;
 }
 
+/*
+*	Reads a string from the keyboard, only accepts letters, max size 10 (add parameter to add functionality)
+*	Enter key submits string, Escape key exits and returns NULL
+*	If password argument is 1, asterisks are echoed instead of pressed characters
+*	Returns a string 
+*/
 char * readString(char * string, int password)
 {
 	int y, x, c, i = 0;

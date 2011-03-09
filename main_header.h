@@ -20,6 +20,12 @@
 #define ESCAPE_KEY 27
 #define arrSize(a) sizeof(a)/sizeof(a[0])
 
+#define SUCCESS_REGISTER 0
+#define SUCCESS_LOAD 1
+#define WRONG_PASS -1
+#define NOT_FOUND -2
+#define COULDNT_POST -3
+
 int screenx, screeny;
 
 int inputField(char * label, char * string, int password);
@@ -28,15 +34,16 @@ void emptyRead(void *ptr, size_t size, size_t nmemb, void *stream);
 int responseCheck(char * registerFile, char * string);
 char * readString(char * string, int password);
 
-void showStats(player hero);
-void continueGame(void);
-void loadGameRemote(char * name, char * password);
+void showStats(player * hero);
+void continueGame(player * hero);
+int loadGameRemote(char * name, char * password);
 void initScreen(void);
 void initGame(void);
 void initPlayer(char * name, char * password, player * hero);
 int createMenu(char * title, char ** choices, int n_choices, int x, int y, int goback);
-void newGame(void);
+void newGame(player * hero);
 void help(void);
 int sendRemotePlayer(char * name, char * password, char * page, char * stream);
+void gameLoop(player * hero);
 
 #endif
