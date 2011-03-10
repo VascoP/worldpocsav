@@ -5,7 +5,7 @@
 *	Option: go back (if 1) presents an option to exit the menus
 * 	Returns id of the selected option
 */
-int createMenu(char * title, char **choices, int n_choices, int y, int x, int goback)
+int createMenu(char **choices, int n_choices, int y, int x, int goback)
 {
 	char *back = "Go back";
 	int i, c, test = 0, width = strlen(back)+1;
@@ -13,8 +13,6 @@ int createMenu(char * title, char **choices, int n_choices, int y, int x, int go
 	ITEM **menuItems;
 	WINDOW *menuWin;
 
-	/*prints title*/
-	printw("%s", title);
 	refresh();
 
 	/*initializes items*/
@@ -36,15 +34,18 @@ int createMenu(char * title, char **choices, int n_choices, int y, int x, int go
 	menu = new_menu((ITEM**)menuItems);
 
 	/*create menu's window*/
-	menuWin = newwin(n_choices+goback, width, y, x);
+	menuWin = newwin(n_choices+goback+2, width+2, y, x);
 	keypad(menuWin, TRUE);
 
 	/* Set menu's main window*/
 	set_menu_win(menu, menuWin);
+	set_menu_sub(menu, derwin(menuWin, n_choices+goback, width, 1, 1));
+	box(menuWin, 0, 0);
+	set_menu_mark(menu, NULL);
 
 	/*draw menu*/
 	post_menu(menu); 
-	wrefresh(menuWin);
+	wrefresh(menuWin);	
 
 	/*gets the position on the menu until selection*/
 	while((c = wgetch(menuWin)) != ENTER_KEY) 

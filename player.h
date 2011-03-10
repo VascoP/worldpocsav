@@ -1,13 +1,13 @@
 #ifndef _player_
 #define _player_
 
-#define Gold 0
-#define Life 1
-#define Speed 2
-#define Wisdom 3
-#define Agility 4
-#define Strenght 5
-#define Resistance 6
+#define GOLD 0
+#define LIFE 1
+#define SPEED 2
+#define WISDOM 3
+#define AGILITY 4
+#define STRENGHT 5
+#define RESISTANCE 6
 
 typedef struct player
 {
@@ -15,8 +15,10 @@ typedef struct player
 	char *password;
 	int skills[7];
     char *spelledskills[7];
+	int freePoints;
 
 } player;
 
+void restoreLife(WINDOW * win, player * hero, int amount);
 
 #endif

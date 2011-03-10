@@ -21,5 +21,6 @@ void initPlayer(char * name, char * password, player * hero)
 
 	hero->name = name;
 	hero->password = password;	
-	hero->skills[Life] = 100;
+	hero->skills[LIFE] = 83;
+	hero->freePoints = 0;
 }

@@ -1,7 +1,5 @@
 #include "main_header.h"
 
-#define posNumb(a) a > 0 ? 17-((int)log10(a)) : 17
-
 /*
 *	Prints a box with the player name and stats
 */
@@ -9,12 +7,10 @@ void showStats(player * hero)
 {
 	int i, x = 1, y = 1;
 	WINDOW * winStats;
+	
+	mvprintw(1, 63, "Statistics");
 
-	clear();
-	refresh();
-	
-	winStats = newwin(10, 20, 0, 60);
-	
+	winStats = newwin(10, 20, 2, 59);
 	
 	mvwprintw(winStats, y, x, "Name:");
 	mvwprintw(winStats, y++, 18-strlen(hero->name), "%s", hero->name);
@@ -27,7 +23,6 @@ void showStats(player * hero)
 	
 	box(winStats, 0, 0);
 	wrefresh(winStats);	
-	wgetch(winStats);
 
 	delwin(winStats);
 

@@ -5,40 +5,68 @@
 *	Option: password - asks for confirmation and displays *'s instead (*'s not implemented yet)
 *	---> EDIT: UPDATE IN ORDER TO RECEIVE MIN/MAX INPUT VALUES <---
 */
-int inputField(char * label, char * string, int password)
+int inputField(char * label, char * string, int password, int confirm)
 {
 	char check[11];
+	WINDOW * winField;
+
+	winField = newwin(3, 20, 2, 1);
+	keypad(winField, TRUE);
 
 	clear();
 	curs_set(1);
 	refresh();
+	box(winField, 0, 0);
+	wrefresh(winField);
 
-	do
+	if(confirm == 1)
 	{
-		printw("[3-10] letters\n\n");
-		printw("%s: ", label);
-		if(readString(string, password) == NULL)
+		do
 		{
-			curs_set(0);
-			clear();
+			mvprintw(1, 2, "Register\n");
+			mvwprintw(winField, 1, 1, "%s: ", label);
+			wclrtoeol(winField);
+			box(winField, 0, 0);
+			refresh();	
+			if(readString(string, password, winField) == NULL)
+			{
+				curs_set(0);
+				clear();
+				refresh();
+				return -1;
+			}
+			strcpy(check, string);
+			mvprintw(1, 2, "Confirmation must match\n");
+			mvwprintw(winField, 1, 1, "%s: ", label);
+			wclrtoeol(winField);
+			box(winField, 0, 0);
 			refresh();
-			return -1;
-		}
-		strcpy(check, string);
-		printw("\n\nConfirmation must match\n");
-		printw("Confirm: ");
-		string[0] = '\0';
-		if(readString(string, password) == NULL)
-		{
-			curs_set(0);
+			string[0] = '\0';
+			if(readString(string, password, winField) == NULL)
+			{
+				curs_set(0);
+				clear();
+				refresh();
+				return -1;
+			}
 			clear();
-			refresh();
-			return -1;
+			wrefresh(winField);
 		}
-		clear();
-		refresh();
+		while((strcmp(check, string) != 0) || strlen(string) < 3);
 	}
-	while((strcmp(check, string) != 0) || strlen(string) < 3);
+	else
+	{
+		mvprintw(1, 2, "Login\n");
+		refresh();
+		mvwprintw(winField, 1, 1, "%s: ", label);
+		if(readString(string, password, winField) == NULL)
+		{
+			curs_set(0);
+			clear();
+			refresh();
+			return -1;
+		}
+	}
 
 	clear();
 	curs_set(0);
@@ -52,52 +80,58 @@ int inputField(char * label, char * string, int password)
 *	If password argument is 1, asterisks are echoed instead of pressed characters
 *	Returns a string 
 */
-char * readString(char * string, int password)
+char * readString(char * string, int password, WINDOW * win)
 {
 	int y, x, c, i = 0;
 	unsigned int asterisk = 0;
 
-	getyx(stdscr, y, x);
+	getyx(win, y, x);
 
-	while((c = getch()) != ENTER_KEY) 
+	while((c = wgetch(win)) != ENTER_KEY) 
 	{
 		if(((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) && (i < 10))
 		{
 			string[i++] = c;
 			string[i] = '\0';
-			move(y, x);
-			clrtoeol();
-			refresh();
+			wmove(win, y, x);
+			wclrtoeol(win);
+			wrefresh(win);
 			if(password)
 			{
 				while(asterisk < strlen(string))
 				{
-					addch('*');
+					waddch(win, '*');
 					asterisk++;
 				}
 				asterisk = 0;
 			}
 			else
-				printw("%s", string);
+				wprintw(win, "%s", string);
+
+			box(win, 0, 0);
+			wrefresh(win);
 		}
 		if(c == KEY_BACKSPACE && i > 0)
 		{
 			i--;
 			string[i] = '\0';
-			move(y, x);
-			clrtoeol();
-			refresh();
+			wmove(win, y, x);
+			wclrtoeol(win);
+			wrefresh(win);
 			if(password)
 			{
 				while(asterisk < strlen(string))
 				{
-					addch('*');
+					waddch(win, '*');
 					asterisk++;
 				}
 				asterisk = 0;
 			}
 			else
-				printw("%s", string);
+				wprintw(win, "%s", string);
+
+			box(win, 0, 0);
+			wrefresh(win);
 		}
 		if(c == ESCAPE_KEY)
 			return NULL;

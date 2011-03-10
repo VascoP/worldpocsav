@@ -7,23 +7,24 @@
 void initGame()
 {
 	/*items in the menu*/
-	char *choices[] = { "New Game", "Continue Game", "Help", "Exit" };
+	char *choices[] = { "Continue Game", "New Game", "Help", "Exit" };
 	int option;
 	player * hero = (player *) malloc(sizeof(player));
 
 	while(1)
 	{
+		mvprintw(1, 1, "World of Pocsav");
 		/*create menu*/
-		option = createMenu("--- World of Pocsav ---", choices, arrSize(choices), MARGIN, 0, 0);
+		option = createMenu(choices, arrSize(choices), 2, 1, 0);
 
 		/*choice triggered functions*/
 		switch(option)
 		{
-			/*new game*/
-			case 0:	newGame(hero);
-					break;
 			/*continue game*/
-			case 1: continueGame(hero);
+			case 0:	continueGame(hero);
+					break;
+			/*new game*/
+			case 1: newGame(hero);
 					break;
 			/*help screen*/
 			case 2: help();

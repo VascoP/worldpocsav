@@ -15,10 +15,11 @@
 *	---> EDIT: Please organize ._.' <---
 */
 
-#define MARGIN 2
 #define ENTER_KEY 13
 #define ESCAPE_KEY 27
+
 #define arrSize(a) sizeof(a)/sizeof(a[0])
+#define posNumb(a) a > 0 ? 17-((int)log10(a)) : 17
 
 #define SUCCESS_REGISTER 0
 #define SUCCESS_LOAD 1
@@ -28,19 +29,21 @@
 
 int screenx, screeny;
 
-int inputField(char * label, char * string, int password);
+int inputField(char * label, char * string, int password, int confirm);
 int postData(char * data, char * url, char * stream);
 void emptyRead(void *ptr, size_t size, size_t nmemb, void *stream);
 int responseCheck(char * registerFile, char * string);
-char * readString(char * string, int password);
+char * readString(char * string, int password, WINDOW * win);
 
+void showDialog(WINDOW * winDialog, char * string);
+void showInventory(player * hero);
 void showStats(player * hero);
 void continueGame(player * hero);
 int loadGameRemote(char * name, char * password);
 void initScreen(void);
 void initGame(void);
 void initPlayer(char * name, char * password, player * hero);
-int createMenu(char * title, char ** choices, int n_choices, int x, int y, int goback);
+int createMenu(char ** choices, int n_choices, int x, int y, int goback);
 void newGame(player * hero);
 void help(void);
 int sendRemotePlayer(char * name, char * password, char * page, char * stream);

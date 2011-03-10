@@ -30,8 +30,10 @@ int sendRemotePlayer(char * name, char * password, char * page, char * stream)
 	}
 	else
 	{
-		printw("Couldn't post data!\n");
+		printw("Couldn't connect!\n");
 		getch();
+		clear();
+		refresh();
 	}
 	free(sendString);
 	free(website);
