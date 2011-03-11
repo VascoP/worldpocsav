@@ -12,7 +12,7 @@ void initPlayer(char * name, char * password, player * hero)
 	for(i = 0; i < 7; i++)
 		hero->skills[i] = 0;
 	hero->spelledskills[0] = "Gold";
-	hero->spelledskills[1] = "Life";
+	hero->spelledskills[1] = "HP";
 	hero->spelledskills[2] = "Speed";
 	hero->spelledskills[3] = "Wisdom";
 	hero->spelledskills[4] = "Agility";
@@ -21,6 +21,6 @@ void initPlayer(char * name, char * password, player * hero)
 
 	hero->name = name;
 	hero->password = password;	
-	hero->skills[LIFE] = 83;
+	hero->skills[HP] = 83;
 	hero->freePoints = 0;
 }

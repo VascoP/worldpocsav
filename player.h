@@ -2,7 +2,7 @@
 #define _player_
 
 #define GOLD 0
-#define LIFE 1
+#define HP 1
 #define SPEED 2
 #define WISDOM 3
 #define AGILITY 4

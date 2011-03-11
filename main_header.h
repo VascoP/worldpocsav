@@ -47,6 +47,7 @@ int createMenu(char ** choices, int n_choices, int x, int y, int goback);
 void newGame(player * hero);
 void help(void);
 int sendRemotePlayer(char * name, char * password, char * page, char * stream);
+int syncPlayer(player * hero, WINDOW * win);
 void gameLoop(player * hero);
 
 #endif
