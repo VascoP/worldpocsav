@@ -1,6 +1,6 @@
 #include "main_header.h"
 
-int syncPlayer(player * hero, WINDOW * win)
+int syncPlayer(player * hero, WINDOW * win, memoryStruct * incoming)
 {
 	int status, i, lenght;
 	/*string to hold full url*/
@@ -9,8 +9,6 @@ int syncPlayer(player * hero, WINDOW * win)
 	char * domain = "http://www.vascop.co.cc/";
 	/*full site (domain+page)*/
 	char * website = (char *) malloc((strlen(domain)+strlen(hero->name)+15)*sizeof(char));
-
-	char * stream = "sync_reply.data";
 
 	sprintf(website, "%s/sync/%s.php", domain, hero->name);
 
@@ -24,7 +22,7 @@ int syncPlayer(player * hero, WINDOW * win)
 	showDialog(win, "Connecting to server...");
 
 	/*POST*/
-	if((status = postData(sendString, website, stream)) == 0)	
+	if((status = postData(sendString, website, incoming)) == 0)	
 		showDialog(win, "Connected");
 
 	else

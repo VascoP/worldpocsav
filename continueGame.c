@@ -5,7 +5,9 @@
 */
 void continueGame(player * hero)
 {
+	char * outgoing;
 	char pass[11], name[11];
+	memoryStruct incoming;
 	
 	/*login player and password*/
 	if(inputField("Name", name, 0, 0) == -1)
@@ -13,33 +15,40 @@ void continueGame(player * hero)
 	if(inputField("Pass", pass, 1, 0) == -1)
 		return;	
 
-	/*check player in the server*/
-	if(loadGameRemote(name, pass) == SUCCESS_LOAD)
+	outgoing = (char *)malloc((strlen(name)+strlen(pass)+strlen("name=&pass=")+1)*sizeof(char));
+	incoming.memory = malloc(1);
+	incoming.size = 0;
+
+	sprintf(outgoing, "name=%s&pass=%s", name, pass);
+
+	/*retrieve player info*/
+	if(sendRemoteString(outgoing, "playerinfo.php", &incoming) == 0)
 	{
-		initPlayer(name, pass, hero);
-		gameLoop(hero);
+		if(strcmp(incoming.memory, "Ok") == 0)
+		{
+			initPlayer(name, pass, hero);
+			gameLoop(hero);
+		}				
+		
+		if(strcmp(incoming.memory, "WrongPass") == 0)
+		{
+			printw("Wrong password!\n");
+			getch();
+			clear();
+			refresh();
+		}
+		if(strcmp(incoming.memory, "NotFound") == 0)
+		{
+			printw("Player not found!\n");
+			getch();
+			clear();
+			refresh();
+		}	
 	}
+
+	if(incoming.memory)
+    	free(incoming.memory);
 
 	return;
-}
-
-/*
-*	Checks player's presence in the server and retrieves stats
-*/
-int loadGameRemote(char * name, char * password)
-{
-	/*retrieve player info*/
-	if(sendRemotePlayer(name, password, "playerinfo.php", "load.data") == 0)
-	{
-		if(responseCheck("load.data", "Ok") == 0)
-			return SUCCESS_LOAD;				
-
-		if(responseCheck("load.data", "WrongPass") == 0)
-			return WRONG_PASS;			
-
-		if(responseCheck("load.data", "NotFound") == 0)
-			return NOT_FOUND;
-	}
-	return COULDNT_POST;
 }
 

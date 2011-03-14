@@ -5,7 +5,7 @@
 *	Starts skills at 0, life at 100 - initializes spelled skills (makes printing easier)
 *	---> EDIT: ADD CUSTOM VALUES FOR STATS / LIFE AT INITIALIZATION <---
 */
-void initPlayer(char * name, char * password, player * hero)
+void initPlayer(char * name, char * pass, player * hero)
 {
 	int i;
 
@@ -20,7 +20,7 @@ void initPlayer(char * name, char * password, player * hero)
 	hero->spelledskills[6] = "Resistance";
 
 	hero->name = name;
-	hero->password = password;	
+	hero->pass = pass;	
 	hero->skills[HP] = 83;
 	hero->freePoints = 0;
 }

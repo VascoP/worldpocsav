@@ -6,6 +6,10 @@ void gameLoop(player * hero)
 	char *choices[] = { "Explore the cave", "Go to the village", "Go to sleep", "Exit" };
 	int option;
 
+	memoryStruct incoming;
+	incoming.memory = malloc(1);
+	incoming.size = 0;
+
 	clear();
 	refresh();
 
@@ -14,6 +18,7 @@ void gameLoop(player * hero)
 	{
 		showStats(hero);
 		showInventory(hero);
+		syncPlayer(hero, winDialog, &incoming);
 
 		mvprintw(1, 2, "Choose your move");
 		/*create menu*/
@@ -37,9 +42,10 @@ void gameLoop(player * hero)
 					return;
 					break;
 		}
-
-		syncPlayer(hero, winDialog);
 	}
+
+	if(incoming.memory)
+    	free(incoming.memory);
 
 	return;
 }

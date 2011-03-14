@@ -29,9 +29,14 @@
 
 int screenx, screeny;
 
+typedef struct memoryStruct {
+  char * memory;
+  size_t size;
+} memoryStruct;
+
 int inputField(char * label, char * string, int password, int confirm);
-int postData(char * data, char * url, char * stream);
-void emptyRead(void *ptr, size_t size, size_t nmemb, void *stream);
+int postData(char * outgoing, char * url, memoryStruct * incoming);
+size_t readServer(void *ptr, size_t size, size_t nmemb, void *stream);
 int responseCheck(char * registerFile, char * string);
 char * readString(char * string, int password, WINDOW * win);
 
@@ -39,15 +44,15 @@ void showDialog(WINDOW * winDialog, char * string);
 void showInventory(player * hero);
 void showStats(player * hero);
 void continueGame(player * hero);
-int loadGameRemote(char * name, char * password);
+int loadGameRemote(char * name, char * pass);
 void initScreen(void);
 void initGame(void);
-void initPlayer(char * name, char * password, player * hero);
+void initPlayer(char * name, char * pass, player * hero);
 int createMenu(char ** choices, int n_choices, int x, int y, int goback);
 void newGame(player * hero);
 void help(void);
-int sendRemotePlayer(char * name, char * password, char * page, char * stream);
-int syncPlayer(player * hero, WINDOW * win);
+int sendRemoteString(char * sendString, char * page, memoryStruct * incoming);
+int syncPlayer(player * hero, WINDOW * win, memoryStruct * incoming);
 void gameLoop(player * hero);
 
 #endif

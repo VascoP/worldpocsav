@@ -12,7 +12,7 @@
 typedef struct player
 {
 	char *name;
-	char *password;
+	char *pass;
 	int skills[7];
     char *spelledskills[7];
 	int freePoints;

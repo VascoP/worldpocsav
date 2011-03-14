@@ -7,7 +7,7 @@
 void initGame()
 {
 	/*items in the menu*/
-	char *choices[] = { "Continue Game", "New Game", "Help", "Exit" };
+	char * choices[] = { "Continue Game", "New Game", "Help", "Exit" };
 	int option;
 	player * hero = (player *) malloc(sizeof(player));
 
