@@ -3,22 +3,34 @@
 void gameLoop(player * hero)
 {
 	WINDOW * winDialog = newwin(7, 78, 17, 1);
-	char *choices[] = { "Explore the cave", "Go to the village", "Go to sleep", "Exit" };
+	char * choices[] = { "Explore the cave", "Go to the village", "Go to sleep", "Exit" };
+	char * page;
 	int option;
-
+	char * outgoing;
 	memoryStruct incoming;
-	incoming.memory = malloc(1);
 	incoming.size = 0;
 
 	clear();
 	refresh();
 
+	outgoing = (char *) malloc((strlen("name=&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d")+strlen(hero->name)+1)*sizeof(char));
+
+	page = (char *) malloc((strlen(hero->name)+strlen("sync/.php")+1)*sizeof(char));
+	sprintf(page, "sync/%s.php", hero->name);
+	
+	incoming.memory = malloc(1);
+	sprintf(outgoing, "name=%s&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d", hero->name, hero->skills[0], hero->skills[1], hero->skills[2], hero->skills[3], hero->skills[4], hero->skills[5], hero->skills[6]);
+	sendRemoteString(outgoing, page, &incoming);
+	free(incoming.memory);
+
+	showDialog(winDialog, "");
 	
 	while(1)
 	{
 		showStats(hero);
 		showInventory(hero);
-		syncPlayer(hero, winDialog, &incoming);
+
+		incoming.memory = malloc(1);
 
 		mvprintw(1, 2, "Choose your move");
 		/*create menu*/
@@ -42,10 +54,12 @@ void gameLoop(player * hero)
 					return;
 					break;
 		}
-	}
 
-	if(incoming.memory)
-    	free(incoming.memory);
+		sprintf(outgoing, "name=%s&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d", hero->name, hero->skills[0], hero->skills[1], hero->skills[2], hero->skills[3], hero->skills[4], hero->skills[5], hero->skills[6]);
+		sendRemoteString(outgoing, page, &incoming);
+
+   		free(incoming.memory);
+	}
 
 	return;
 }
