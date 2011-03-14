@@ -21,7 +21,9 @@ void continueGame(player * hero)
 
 	sprintf(outgoing, "name=%s&pass=%s", name, pass);
 
-	/*retrieve player info*/
+	printw("Connecting...");
+	refresh();
+
 	if(sendRemoteString(outgoing, "playerinfo.php", &incoming) == 0)
 	{
 		if(strcmp(incoming.memory, "Ok") == 0)

@@ -10,18 +10,18 @@ void gameLoop(player * hero)
 	memoryStruct incoming;
 	incoming.size = 0;
 
-	clear();
-	refresh();
-
 	outgoing = (char *) malloc((strlen("name=&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d")+strlen(hero->name)+1)*sizeof(char));
 
 	page = (char *) malloc((strlen(hero->name)+strlen("sync/.php")+1)*sizeof(char));
 	sprintf(page, "sync/%s.php", hero->name);
-	
+
 	incoming.memory = malloc(1);
 	sprintf(outgoing, "name=%s&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d", hero->name, hero->skills[0], hero->skills[1], hero->skills[2], hero->skills[3], hero->skills[4], hero->skills[5], hero->skills[6]);
 	sendRemoteString(outgoing, page, &incoming);
 	free(incoming.memory);
+
+	clear();
+	refresh();
 
 	showDialog(winDialog, "");
 	
