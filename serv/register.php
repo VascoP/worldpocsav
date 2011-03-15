@@ -1,7 +1,9 @@
 <?php 
 
 $usersFile = "users";
-$newfile = "sync/" . $_POST["name"] . ".php";
+$syncfile = "sync/" . $_POST["name"] . ".php";
+$statusfile = "status/" . $_POST["name"] . ".php";
+
 
 $fp = fopen($usersFile, 'a+');
 
@@ -22,8 +24,8 @@ $userInfo = $_POST["name"]."__::__".$_POST["pass"]."\n";
 fwrite($fp, $userInfo);
 fclose($fp); 
 
-copy("sync.php", $newfile);
-chmod($newfile, 0777); 
+copy("sync.php", $syncfile);
+chmod($syncfile, 0777); 
 
 ?>
 		

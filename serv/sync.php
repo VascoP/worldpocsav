@@ -14,7 +14,6 @@ $path = "../profiles/" . $Name . ".php";
 
 $fp = fopen($path, 'w');
 
-fwrite($fp, "<html><head></head><body>");
 fwrite($fp, "<h1>$Name</h1>");
 fwrite($fp, "<p>HP: $HP</p>");
 fwrite($fp, "<p>Speed: $Speed</p>");
@@ -22,7 +21,14 @@ fwrite($fp, "<p>Wisdom: $Wisdom</p>");
 fwrite($fp, "<p>Agility: $Agility</p>");
 fwrite($fp, "<p>Strenght: $Strenght</p>");
 fwrite($fp, "<p>Resistance: $Resistance</p>");
-fwrite($fp, "</body></html>");
+
+fclose($fp);
+
+$path = "../status/" . $Name;
+
+$fp = fopen($path, 'w');
+
+fwrite($fp, "$HP $Speed $Wisdom $Agility $Strenght $Resistance");
 
 fclose($fp);
 

@@ -1,6 +1,7 @@
 <?php 
 
 $usersFile = "users";
+$status = "status/" . $_POST["name"];
 
 if(!file_exists($usersFile))
 {
@@ -19,8 +20,11 @@ while (($readLine = fgets($fp)) != false)
         $pass = $_POST["pass"]."\n";
 		if(strcmp($chunks[1], $pass) == 0)
 		{
-			echo "Ok";
-            fclose($fp); 
+			fclose($fp);
+			$fp = fopen($status, "r");
+			$readLine = fgets($fp);
+			echo "$readLine";
+			fclose($fp);
 			exit(0);
 		}
 		else

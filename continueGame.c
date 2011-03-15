@@ -26,13 +26,6 @@ void continueGame(player * hero)
 
 	if(sendRemoteString(outgoing, "playerinfo.php", &incoming) == 0)
 	{
-		if(strcmp(incoming.memory, "Ok") == 0)
-		{
-			initPlayer(name, pass, hero);
-			restorePlayer(&incoming, hero);
-			gameLoop(hero);
-		}				
-		
 		if(strcmp(incoming.memory, "WrongPass") == 0)
 		{
 			printw("Wrong password!\n");
@@ -41,14 +34,23 @@ void continueGame(player * hero)
 			clear();
 			refresh();
 		}
-		if(strcmp(incoming.memory, "NotFound") == 0)
-		{
-			printw("Player not found!\n");
-			refresh();
-			getch();
-			clear();
-			refresh();
-		}	
+		else 
+		{ 
+			if(strcmp(incoming.memory, "NotFound") == 0)
+			{
+				printw("Player not found!\n");
+				refresh();
+				getch();
+				clear();
+				refresh();
+			}	
+			else
+			{
+				initPlayer(name, pass, hero);
+				restorePlayer(&incoming, hero);
+				gameLoop(hero);	
+			}
+		}
 	}
 
 	if(incoming.memory)
