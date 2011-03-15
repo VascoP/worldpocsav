@@ -25,6 +25,9 @@ void newGame(player * hero)
 
 	sprintf(outgoing, "name=%s&pass=%s", name, pass);
 
+	printw("Connecting...");
+	refresh();
+
 	/*register new player*/
 	if(sendRemoteString(outgoing, "register.php", &incoming) == SUCCESS_REGISTER)
 	{

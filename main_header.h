@@ -48,6 +48,7 @@ int loadGameRemote(char * name, char * pass);
 void initScreen(void);
 void initGame(void);
 void initPlayer(char * name, char * pass, player * hero);
+void restorePlayer(memoryStruct * incoming, player * hero);
 int createMenu(char ** choices, int n_choices, int x, int y, int goback);
 void newGame(player * hero);
 void help(void);

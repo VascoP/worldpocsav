@@ -1,5 +1,5 @@
 DEPS= main_header.h player.h
-OBJ= game.o initScreen.o initGame.o createMenu.o continueGame.o initPlayer.o newGame.o inputField.o help.o showStats.o sendRemoteString.o gameLoop.o showInventory.o restoreLife.o showDialog.o readServer.o postData.c
+OBJ= game.o initScreen.o initGame.o createMenu.o continueGame.o initPlayer.o newGame.o inputField.o help.o showStats.o sendRemoteString.o gameLoop.o showInventory.o restoreLife.o showDialog.o readServer.o postData.o restorePlayer.o
 CFLAGS= -Wall -Wextra -ansi -pedantic
 LIBS= -lform -lmenu -lncurses -lm -lcurl
 CC= gcc
