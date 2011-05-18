@@ -1,0 +1,8 @@
+cd /opt/lampp/htdocs/pocsav
+rm users -f
+cd profiles
+rm *.php -f
+cd ../sync
+rm *.php -f
+cd ../status
+rm * -f

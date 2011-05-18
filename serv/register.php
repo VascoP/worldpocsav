@@ -17,8 +17,6 @@ while (($readLine = fgets($fp)) != false) {
 	}
 }
 
-echo "Ok";
-
 $userInfo = $_POST["name"]."__::__".$_POST["pass"]."\n";
 
 fwrite($fp, $userInfo);
@@ -27,5 +25,7 @@ fclose($fp);
 copy("sync.php", $syncfile);
 chmod($syncfile, 0777); 
 
+echo "ok";
+exit(0);
 ?>
 		

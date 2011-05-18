@@ -24,6 +24,6 @@ int postData(char * outgoing, char * url, memoryStruct * incoming)
 		printw("Can't start easy curl handle\n");
 		getch();
 	}	
-
+	
 	return res;
 }

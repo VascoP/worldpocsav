@@ -9,6 +9,14 @@
 #define STRENGHT 5
 #define RESISTANCE 6
 
+/*typedef struct item
+{
+	char * name;
+	int position;
+	item * next;
+} item;*/
+
+
 typedef struct player
 {
 	char *name;

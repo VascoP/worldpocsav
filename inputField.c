@@ -23,7 +23,7 @@ int inputField(char * label, char * string, int password, int confirm)
 	{
 		do
 		{
-			mvprintw(1, 2, "Register\n");
+			mvprintw(1, 2, "Register (min 3 characters)\n");
 			mvwprintw(winField, 1, 1, "%s: ", label);
 			wclrtoeol(winField);
 			box(winField, 0, 0);

@@ -40,9 +40,27 @@ void newGame(player * hero)
 		}
 		else
 		{
-			gameLoop(hero);
+			if(strcmp(incoming.memory, "ok") == 0)
+			{
+				gameLoop(hero);
+			}
+			else
+			{
+				printw("Problem connecting to server!\n");
+				getch();
+				clear();
+				refresh();
+			}
 		}
 	}
+	else
+	{
+		printw("Problem connecting to server!\n");
+		getch();
+		clear();
+		refresh();
+	}
+	
 
 	if(incoming.memory)
     	free(incoming.memory);

@@ -4,7 +4,7 @@ int sendRemoteString(char * sendString, char * page, memoryStruct * incoming)
 {
 	int status;
 	/*site domain*/
-	char * domain = "http://www.vascop.co.cc/";
+	char * domain = "http://localhost/pocsav/";
 	/*full site (domain+page)*/
 	char * website = (char *) malloc((strlen(domain)+strlen(page)+1)*sizeof(char));
 

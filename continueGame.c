@@ -52,6 +52,13 @@ void continueGame(player * hero)
 			}
 		}
 	}
+	else
+	{
+		printw("Problem connecting to server!\n");
+		getch();
+		clear();
+		refresh();
+	}
 
 	if(incoming.memory)
     	free(incoming.memory);
