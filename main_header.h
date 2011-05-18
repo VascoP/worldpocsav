@@ -56,4 +56,6 @@ int sendRemoteString(char * sendString, char * page, memoryStruct * incoming);
 int syncPlayer(player * hero, WINDOW * win, memoryStruct * incoming);
 void gameLoop(player * hero);
 
+int findItem(player * hero);
+
 #endif

@@ -21,6 +21,11 @@ void initPlayer(char * name, char * pass, player * hero)
 
 	hero->name = name;
 	hero->pass = pass;	
-	hero->skills[HP] = 83;
+	hero->skills[HP] = 50;
 	hero->freePoints = 0;
+
+	hero->inventory = (item *) malloc(sizeof(item));
+	hero->inventory->next = NULL;
+	hero->inventory->itemName = (char *) malloc(strlen("Dagger")*sizeof(char));
+	hero->inventory->itemName = "Dagger";
 }

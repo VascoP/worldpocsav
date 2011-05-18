@@ -43,7 +43,7 @@ void gameLoop(player * hero)
 			case 0:	
 					break;
 			/**/
-			case 1: 
+			case 1: findItem(hero);
 					break;
 			/**/
 			case 2: restoreLife(winDialog, hero, 10);

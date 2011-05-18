@@ -9,21 +9,22 @@
 #define STRENGHT 5
 #define RESISTANCE 6
 
-/*typedef struct item
+typedef struct item
 {
-	char * name;
-	int position;
-	item * next;
-} item;*/
+	char * itemName;
+	int itemPosition;
+	struct item * next;
+} item;
 
 
 typedef struct player
 {
-	char *name;
-	char *pass;
+	char * name;
+	char * pass;
 	int skills[7];
-    char *spelledskills[7];
+    char * spelledskills[7];
 	int freePoints;
+	item * inventory;
 
 } player;
 
