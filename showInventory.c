@@ -12,7 +12,7 @@ void showInventory(player * hero)
 	if(hero->inventory == NULL)
 		mvwprintw(winInvent, y, x, "Empty");
 	else
-		mvwprintw(winInvent, y, x, "%s", hero->inventory->itemName);		
+		mvwprintw(winInvent, y, x, "%d. %s", hero->inventory->itemPosition, hero->inventory->itemName);		
 	
 	box(winInvent, 0, 0);
 	wrefresh(winInvent);	

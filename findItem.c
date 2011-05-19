@@ -1,11 +1,13 @@
 #include "main_header.h"
 
-int findItem(player * hero)
+void findItem(player * hero)
 {
+	int	whichItem;
+	
+	/*whichItem = random();*/
 
 	
-
-	return 1;
+	
 }
 
 

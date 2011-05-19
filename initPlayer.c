@@ -2,8 +2,8 @@
 
 /*
 *	Fills a player structure with a new name/pass combo
-*	Starts skills at 0, life at 100 - initializes spelled skills (makes printing easier)
-*	---> EDIT: ADD CUSTOM VALUES FOR STATS / LIFE AT INITIALIZATION <---
+*	Starts skills - initializes spelled skills (makes printing easier)
+*	Initializes inventory
 */
 void initPlayer(char * name, char * pass, player * hero)
 {
@@ -18,7 +18,7 @@ void initPlayer(char * name, char * pass, player * hero)
 	hero->spelledskills[4] = "Agility";
 	hero->spelledskills[5] = "Strenght";
 	hero->spelledskills[6] = "Resistance";
-
+		
 	hero->name = name;
 	hero->pass = pass;	
 	hero->skills[HP] = 50;
@@ -26,6 +26,7 @@ void initPlayer(char * name, char * pass, player * hero)
 
 	hero->inventory = (item *) malloc(sizeof(item));
 	hero->inventory->next = NULL;
-	hero->inventory->itemName = (char *) malloc(strlen("Dagger")*sizeof(char));
-	hero->inventory->itemName = "Dagger";
+	hero->inventory->itemName = (char *) malloc((strlen("Dagger")+1)*sizeof(char));
+	hero->inventory->itemName = "Dagger\0";
+	hero->inventory->itemPosition = 1;
 }

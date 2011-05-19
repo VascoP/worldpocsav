@@ -1,24 +1,13 @@
 #include "main_header.h"
 
+/*
+*	Main Ingame loop, player actions are made and syncronized with the server each turn
+*/
 void gameLoop(player * hero)
 {
 	WINDOW * winDialog = newwin(7, 78, 17, 1);
 	char * choices[] = { "Explore the cave", "Go to the village", "Go to sleep", "Exit" };
-	char * page;
 	int option;
-	char * outgoing;
-	memoryStruct incoming;
-	incoming.size = 0;
-
-	outgoing = (char *) malloc((strlen("name=&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d")+strlen(hero->name)+1)*sizeof(char));
-
-	page = (char *) malloc((strlen(hero->name)+strlen("sync/.php")+1)*sizeof(char));
-	sprintf(page, "sync/%s.php", hero->name);
-
-	incoming.memory = malloc(1);
-	sprintf(outgoing, "name=%s&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d", hero->name, hero->skills[0], hero->skills[1], hero->skills[2], hero->skills[3], hero->skills[4], hero->skills[5], hero->skills[6]);
-	sendRemoteString(outgoing, page, &incoming);
-	free(incoming.memory);
 
 	clear();
 	refresh();
@@ -30,8 +19,6 @@ void gameLoop(player * hero)
 		showStats(hero);
 		showInventory(hero);
 
-		incoming.memory = malloc(1);
-
 		mvprintw(1, 2, "Choose your move");
 		/*create menu*/
 		option = createMenu(choices, arrSize(choices), 2, 1, 0);
@@ -40,10 +27,10 @@ void gameLoop(player * hero)
 		switch(option)
 		{
 			/**/
-			case 0:	
+			case 0:	exploreRegion(hero);
 					break;
 			/**/
-			case 1: findItem(hero);
+			case 1: 
 					break;
 			/**/
 			case 2: restoreLife(winDialog, hero, 10);
@@ -55,10 +42,7 @@ void gameLoop(player * hero)
 					break;
 		}
 
-		sprintf(outgoing, "name=%s&Gold=%d&HP=%d&Speed=%d&Wisdom=%d&Agility=%d&Strenght=%d&Resistance=%d", hero->name, hero->skills[0], hero->skills[1], hero->skills[2], hero->skills[3], hero->skills[4], hero->skills[5], hero->skills[6]);
-		sendRemoteString(outgoing, page, &incoming);
-
-   		free(incoming.memory);
+		uploadStats(hero);
 	}
 
 	return;

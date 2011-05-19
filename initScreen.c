@@ -12,7 +12,7 @@ void initScreen()
 	getmaxyx(stdscr,screeny,screenx);
 	/*gets input before ENTER is pressed*/
  	cbreak();
-	/*ENTER doesnt insert a newline*/
+	/*ENTER doesn't insert a newline*/
 	nonl();
 	/*initialize color variables and routines*/
 	start_color();

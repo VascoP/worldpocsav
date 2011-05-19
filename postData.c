@@ -2,7 +2,7 @@
 
 /*
 *	Opens a connection to an url
-*	POST's data to url, saves response to file and closes connection
+*	POST's data to url, saves response to a memory structure and closes connection
 */
 int postData(char * outgoing, char * url, memoryStruct * incoming)
 {

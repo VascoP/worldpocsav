@@ -10,47 +10,44 @@ void newGame(player * hero)
 	char pass[11], name[11];
 	memoryStruct incoming;
 
+	incoming = initMemStruct();
+
 	/*simple form like input for name and password*/
 	if(inputField("Name", name, 0, 1) == -1)
 		return;
 	if(inputField("Pass", pass, 1, 1) == -1)
 		return;
 
-	/*starts structure with the name/pass and initial stats*/
-	initPlayer(name, pass, hero);
-
+	/*prepare message to send to server*/
 	outgoing = (char *)malloc((strlen(name)+strlen(pass)+strlen("name=&pass=")+1)*sizeof(char));
-	incoming.memory = malloc(1);
-	incoming.size = 0;
-
 	sprintf(outgoing, "name=%s&pass=%s", name, pass);
 
 	printw("Connecting...");
 	refresh();
 
-	/*register new player*/
-	if(sendRemoteString(outgoing, "register.php", &incoming) == SUCCESS_REGISTER)
+	/*send message to server page*/
+	if(sendRemoteString(outgoing, "register.php", &incoming) == 0)
 	{
-		if(strcmp(incoming.memory, "dup") == 0)
+		if(strcmp(incoming.memory, "Duplicate") == 0)
 		{
 			printw("Username already exists!\n");
 			getch();
 			clear();
 			refresh();
 		}
+		if(strcmp(incoming.memory, "Ok") == 0)
+		{
+			/*starts structure with the name/pass and initial stats*/
+			initPlayer(name, pass, hero);
+			uploadStats(hero);
+			gameLoop(hero);
+		}
 		else
 		{
-			if(strcmp(incoming.memory, "ok") == 0)
-			{
-				gameLoop(hero);
-			}
-			else
-			{
-				printw("Problem connecting to server!\n");
-				getch();
-				clear();
-				refresh();
-			}
+			printw("We're having server problems, couldn't register\n");
+			getch();
+			clear();
+			refresh();
 		}
 	}
 	else

@@ -10,7 +10,7 @@ int inputField(char * label, char * string, int password, int confirm)
 	char check[11];
 	WINDOW * winField;
 
-	winField = newwin(3, 20, 2, 1);
+	winField = newwin(3, 20, 3, 1);
 	keypad(winField, TRUE);
 
 	clear();
@@ -23,7 +23,8 @@ int inputField(char * label, char * string, int password, int confirm)
 	{
 		do
 		{
-			mvprintw(1, 2, "Register (min 3 characters)\n");
+			mvprintw(1, 1, "Register (min 3 characters)\n");
+			mvprintw(7, 1, "ESC to cancel");
 			mvwprintw(winField, 1, 1, "%s: ", label);
 			wclrtoeol(winField);
 			box(winField, 0, 0);
@@ -36,7 +37,8 @@ int inputField(char * label, char * string, int password, int confirm)
 				return -1;
 			}
 			strcpy(check, string);
-			mvprintw(1, 2, "Confirmation must match\n");
+			mvprintw(1, 1, "Confirmation must match\n");
+			mvprintw(7, 1, "ESC to cancel");
 			mvwprintw(winField, 1, 1, "%s: ", label);
 			wclrtoeol(winField);
 			box(winField, 0, 0);
@@ -56,7 +58,8 @@ int inputField(char * label, char * string, int password, int confirm)
 	}
 	else
 	{
-		mvprintw(1, 2, "Login\n");
+		mvprintw(1, 1, "Login\n");
+		mvprintw(7, 1, "ESC to cancel");
 		refresh();
 		mvwprintw(winField, 1, 1, "%s: ", label);
 		if(readString(string, password, winField) == NULL)
@@ -74,68 +77,4 @@ int inputField(char * label, char * string, int password, int confirm)
 	return 0;
 }
 
-/*
-*	Reads a string from the keyboard, only accepts letters, max size 10 (add parameter to add functionality)
-*	Enter key submits string, Escape key exits and returns NULL
-*	If password argument is 1, asterisks are echoed instead of pressed characters
-*	Returns a string 
-*/
-char * readString(char * string, int password, WINDOW * win)
-{
-	int y, x, c, i = 0;
-	unsigned int asterisk = 0;
-
-	getyx(win, y, x);
-
-	while((c = wgetch(win)) != ENTER_KEY) 
-	{
-		if(((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) && (i < 10))
-		{
-			string[i++] = c;
-			string[i] = '\0';
-			wmove(win, y, x);
-			wclrtoeol(win);
-			wrefresh(win);
-			if(password)
-			{
-				while(asterisk < strlen(string))
-				{
-					waddch(win, '*');
-					asterisk++;
-				}
-				asterisk = 0;
-			}
-			else
-				wprintw(win, "%s", string);
-
-			box(win, 0, 0);
-			wrefresh(win);
-		}
-		if(c == KEY_BACKSPACE && i > 0)
-		{
-			i--;
-			string[i] = '\0';
-			wmove(win, y, x);
-			wclrtoeol(win);
-			wrefresh(win);
-			if(password)
-			{
-				while(asterisk < strlen(string))
-				{
-					waddch(win, '*');
-					asterisk++;
-				}
-				asterisk = 0;
-			}
-			else
-				wprintw(win, "%s", string);
-
-			box(win, 0, 0);
-			wrefresh(win);
-		}
-		if(c == ESCAPE_KEY)
-			return NULL;
-	}
-	return string;
-}
 
