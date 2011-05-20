@@ -27,7 +27,7 @@ void gameLoop(player * hero)
 		switch(option)
 		{
 			/**/
-			case 0:	exploreRegion(hero);
+			case 0:	hero = exploreRegion(winDialog, hero);
 					break;
 			/**/
 			case 1: 

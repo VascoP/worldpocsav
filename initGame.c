@@ -11,6 +11,9 @@ void initGame()
 	int option;
 	player * hero = (player *) malloc(sizeof(player));
 
+	/*seed the random generator*/
+	srand(time(NULL));
+
 	while(1)
 	{
 		mvprintw(1, 1, "World of Pocsav");

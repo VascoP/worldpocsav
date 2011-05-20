@@ -6,7 +6,7 @@
 */
 int postData(char * outgoing, char * url, memoryStruct * incoming)
 {
-	CURL *curl;
+	CURL * curl;
 	CURLcode res;
 
 	curl = curl_easy_init();

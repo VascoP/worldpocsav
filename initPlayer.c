@@ -24,9 +24,6 @@ void initPlayer(char * name, char * pass, player * hero)
 	hero->skills[HP] = 50;
 	hero->freePoints = 0;
 
-	hero->inventory = (item *) malloc(sizeof(item));
-	hero->inventory->next = NULL;
-	hero->inventory->itemName = (char *) malloc((strlen("Dagger")+1)*sizeof(char));
-	hero->inventory->itemName = "Dagger\0";
-	hero->inventory->itemPosition = 1;
+	hero->inventory = initInventory();
+	hero->inventory = insertItem(hero->inventory, "Map\0");
 }

@@ -16,6 +16,7 @@
 #include <dirent.h>
 #include <math.h>
 #include <curl/curl.h>
+#include <time.h>
 #include "player.h"
 
 /*Keyboard keys definitions lacking in curses*/
@@ -71,7 +72,12 @@ void help(void);
 
 /*Ingame actions*/
 void restoreLife(WINDOW * win, player * hero, int amount);
-void exploreRegion(player * hero);
-void findItem(player * hero);
+player * exploreRegion(WINDOW * win, player * hero);
+
+/*Inventory List*/
+item * initInventory(void);
+item * findItem(WINDOW * win, item * inventory);
+item * insertItem(item * inventory, char * itemName);
+item * searchItem(item * inventory, char * itemName);
 
 #endif

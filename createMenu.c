@@ -7,7 +7,7 @@
 */
 int createMenu(char **choices, int n_choices, int y, int x, int goback)
 {
-	char *back = "Go back";
+	char * back = "Go back";
 	int i, c, test = 0, width = strlen(back)+1;
 	MENU *menu;
 	ITEM **menuItems;

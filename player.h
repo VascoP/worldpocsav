@@ -13,6 +13,7 @@ typedef struct item
 {
 	char * itemName;
 	int itemPosition;
+	int itemQuantity;
 	struct item * next;
 } item;
 
@@ -27,7 +28,5 @@ typedef struct player
 	item * inventory;
 
 } player;
-
-void restoreLife(WINDOW * win, player * hero, int amount);
 
 #endif

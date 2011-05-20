@@ -22,6 +22,8 @@ void restoreLife(WINDOW * win, player * hero, int amount)
 		showDialog(win, out);
 	else
 		showDialog(win, fullstring);
+
+	free(out);
 	
 	return;
 }
